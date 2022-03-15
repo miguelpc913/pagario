@@ -10,5 +10,4 @@ export const createUserController = async (req: Request<{} , {} , UserInput["bod
         return res.status(409).send(e.message);
     }
 }
-// need to implement user creator service
 
