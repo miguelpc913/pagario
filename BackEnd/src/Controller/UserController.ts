@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import UserInput from "../Inputs/UserInput";
-import { createUser } from "../service/user.service";
+import { createUser } from "../Services/User/createUser";
 
-export const createUserController = async (req: Request<{} , {} , UserInput["body"] >, res: Response) => {
+export const createUserController = async (req: Request<{} , {} , UserInput["body"]>, res: Response) => {
     try {
         const user = await createUser(req.body);
-        return res.send(user);
+        return res.status(200).send(user);
     } catch (e: any) {
         return res.status(409).send(e.message);
     }
