@@ -15,7 +15,7 @@ let apiInput = {
     updatedAt: new Date("2022-03-14T13:31:07.674Z"),
 }
 
-describe( "testing user" , () =>{
+describe("testing user", () => {
     beforeAll(async () => {
         const mongoServer = await MongoMemoryServer.create();
         await mongoose.connect(mongoServer.getUri());
@@ -26,10 +26,8 @@ describe( "testing user" , () =>{
         await mongoose.connection.close();
     });
 
-    it("Should create user" , async () =>{
-        const { statusCode, body } = await supertest(app)
-          .post("/api/user")
-          .send(apiInput);
+    it("Should create user", async () => {
+        const { statusCode, body } = await supertest(app).post("/api/user").send(apiInput);
         expect(statusCode).toBe(200);
         expect(body).toBe({
             __v: 0,
