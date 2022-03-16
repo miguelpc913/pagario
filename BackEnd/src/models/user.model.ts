@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 export interface UserDocument {
     name: string,
     email: string
-    phoneNumber: string,
+    phoneNumber?: string,
     createdAt: Date,
     updatedAt: Date
 }

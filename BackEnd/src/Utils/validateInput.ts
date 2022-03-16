@@ -11,7 +11,7 @@ const validateInput = (schema: AnyZodObject) =>
             })
             next();
         } catch (e) {
-            res.json(e);
+            res.status(409).json(e);
         }
     }
 
