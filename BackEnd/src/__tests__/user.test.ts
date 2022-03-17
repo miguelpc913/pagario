@@ -2,27 +2,16 @@ import mongoose from "mongoose";
 import supertest from "supertest";
 import createServer from "../Utils/createServer";
 import { MongoMemoryServer } from "mongodb-memory-server";
-import { UserDocument } from "../models/user.model";
-import { STATUS_CODES } from "http";
-
+import UserModel from "../models/user.model";
 const app = createServer();
 
-const userId = new mongoose.Types.ObjectId().toString();
-
-let apiInput = {
+const apiInput = {
     name: "Miguel",
     email: "miguelpccastro@gmail.com",
     phoneNumber: "+54 911 2252-2921",
 }
 
-
-let apiInput2 = {
-    name: "Miguel",
-    email: "miguelpccastros@gmail.com",
-    phoneNumber: "+54 911 2252-2921",
-}
-
-let incorrectApiInput = {
+const incorrectApiInput = {
     name: "Miguel",
     email: "miguelpccastro@gmail.com",
 }
@@ -53,6 +42,10 @@ describe("testing user", () => {
         await mongoose.connect(mongoServer.getUri());
     });
 
+    beforeEach(async () =>{
+        await UserModel.deleteMany({})
+    })
+
     afterAll(async () => {
         await mongoose.disconnect();
         await mongoose.connection.close();
@@ -70,11 +63,19 @@ describe("testing user", () => {
     })
 
     it("Should find user based on ID", async () => {
-        const userResponseBody : UserResponseBody   = (await supertest(app).post("/api/user").send(apiInput2)).body;
+        const userResponseBody : UserResponseBody   = (await supertest(app).post("/api/user").send(apiInput)).body;
         const {statusCode, body} = await supertest(app).get(`/api/user/${userResponseBody._id}`);
         
-        expect(statusCode).toBe(202);
+        expect(statusCode).toBe(200);
         
         expect(body).toEqual(userComparison)
+    })
+
+    it("Should find update user based on ID", async () => {
+        const userResponseBody : UserResponseBody   = (await supertest(app).post("/api/user").send(apiInput)).body;
+        await supertest(app).patch(`/api/user/${userResponseBody._id}`).send({name: "Angelina"});
+        const userResponseBodyUpdated : UserResponseBody = ( await supertest(app).get(`/api/user/${userResponseBody._id}`)).body;
+
+        expect(userResponseBodyUpdated.name).toBe("Angelina")
     })
 })
