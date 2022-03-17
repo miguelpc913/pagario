@@ -64,7 +64,7 @@ describe("testing user", () => {
 
     it("Should find user based on ID", async () => {
         const userResponseBody : UserResponseBody   = (await supertest(app).post("/api/user").send(apiInput)).body;
-        const {statusCode, body} = await supertest(app).get(`/api/user/${userResponseBody._id}`);
+        const { statusCode, body } = await supertest(app).get(`/api/user/${userResponseBody._id}`);
         
         expect(statusCode).toBe(200);
         
@@ -77,5 +77,12 @@ describe("testing user", () => {
         const userResponseBodyUpdated : UserResponseBody = ( await supertest(app).get(`/api/user/${userResponseBody._id}`)).body;
 
         expect(userResponseBodyUpdated.name).toBe("Angelina")
+    })
+
+    it("Should delete user based on ID", async () => {
+        const userResponseBody : UserResponseBody   = (await supertest(app).post("/api/user").send(apiInput)).body;
+        await supertest(app).delete(`/api/user/${userResponseBody._id}`);
+        const { statusCode, body }= await supertest(app).get(`/api/user/${userResponseBody._id}`);
+        expect(statusCode).toBe(404)
     })
 })

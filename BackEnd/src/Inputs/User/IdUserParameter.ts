@@ -1,6 +1,6 @@
 import { z , TypeOf} from "zod";
 
-const UserGetInput = z.object({
+const IdUserParameter = z.object({
     params: z.object({
         id: z.string({
             required_error: "Id is required",
@@ -8,7 +8,7 @@ const UserGetInput = z.object({
         })
     })
 });
-type UserGetInput = TypeOf<typeof UserGetInput>
+type IdUserParameter = TypeOf<typeof IdUserParameter>
 
 
-export default UserGetInput;
+export default IdUserParameter;

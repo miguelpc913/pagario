@@ -1,4 +1,4 @@
-import GetUserInput from "../../Inputs/User/GetUserInput";
+import GetUserInput from "../../Inputs/User/IdUserParameter";
 import UserModel from "../../models/user.model";
 
 export async function getUser(UserInput: GetUserInput["params"]){

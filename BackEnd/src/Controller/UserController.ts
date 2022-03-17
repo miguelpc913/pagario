@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import CreateUserInput from "../Inputs/User/CreateUserInput";
-import GetUserInput from "../Inputs/User/GetUserInput";
+import IdUserParameter from "../Inputs/User/IdUserParameter";
 import UpdateUserInput from "../Inputs/User/UpdateUserInput";
 import { createUser } from "../Services/User/createUser";
 import { getUser } from "../Services/User/getUser";
 import { updateUser } from "../Services/User/updateUser";
+import { deleteUser } from "../Services/User/deleteUser";
 
 export const createUserController = async (req: Request<{} , {} , CreateUserInput["body"]>, res: Response) => {
     try {
@@ -15,10 +16,10 @@ export const createUserController = async (req: Request<{} , {} , CreateUserInpu
     }
 }
 
-export const getUserController = async (req: Request<GetUserInput["params"]>, res: Response) => {
+export const getUserController = async (req: Request<IdUserParameter["params"]>, res: Response) => {
   try {
       const user = await getUser(req.params);
-      return res.status(202).send(user);
+      return res.status(200).send(user);
   } catch (e: any) {
       return res.status(404).send(e.message);
   }
@@ -27,8 +28,17 @@ export const getUserController = async (req: Request<GetUserInput["params"]>, re
 export const updateUserController = async (req: Request<UpdateUserInput["params"] , {} , UpdateUserInput["body"]> , res: Response) =>{
     try{
         const user = await updateUser(req.params.id , req.body)
-        res.status(202).send(user);
+        res.status(200).send(user);
     }catch(e : any){
         res.status(404).send(e.message);
     }
 }
+
+export const deleteUserController = async (req: Request<IdUserParameter["params"]>, res: Response) => {
+    try {
+        const user = await deleteUser(req.params);
+        return res.status(200).send(user);
+    } catch (e: any) {
+        return res.status(404).send(e.message);
+    }
+  }
