@@ -3,4 +3,6 @@ export type User = {
     email: string
     _id: string,
     phoneNumber?: string,
+    createdAt: Date,
+    updatedAt: Date
 }
