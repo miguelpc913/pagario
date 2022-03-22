@@ -1,7 +1,8 @@
 import UserModel from "../../models/user.model";
 import UpdateUserInput from "../../Inputs/User/UpdateUserInput";
 
-export async function updateUser (UserId : String , userUpdateInputBody : UpdateUserInput["body"]){
+export async function updateUser (UserId : UpdateUserInput["params"]["id"] , 
+userUpdateInputBody : UpdateUserInput["body"]){
     try{
         const user = await UserModel.findById(UserId);
         if (user === null) throw new Error();
