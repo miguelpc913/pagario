@@ -1,5 +1,5 @@
 import DeleteUserInput from "../../Inputs/User/IdUserParameter";
-import UserModel from "../../models/user.model";
+import UserModel from "../../Models/user.model";
 
 export async function deleteUser(deleteUserInput: DeleteUserInput["params"]){
     try{

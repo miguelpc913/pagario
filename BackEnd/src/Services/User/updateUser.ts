@@ -1,4 +1,4 @@
-import UserModel from "../../models/user.model";
+import UserModel from "../../Models/user.model";
 import UpdateUserInput from "../../Inputs/User/UpdateUserInput";
 
 export async function updateUser (UserId : UpdateUserInput["params"]["id"] , 

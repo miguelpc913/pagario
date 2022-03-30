@@ -1,5 +1,5 @@
 import CreateUserInput from "../../Inputs/User/CreateUserInput";
-import UserModel from "../../models/user.model";
+import UserModel from "../../Models/user.model";
 
 export async function createUser(UserInput: CreateUserInput["body"]){
     try{

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import supertest from "supertest";
 import createServer from "../Utils/createServer";
 import { MongoMemoryServer } from "mongodb-memory-server";
-import DebtModel from "../models/debt.model";
+import DebtModel from "../Models/debt.model";
 import UserResponseBody from "./TestUtils/UserResponse";
 
 const app = createServer();
@@ -83,13 +83,15 @@ describe("testing debt", () => {
         expect(statusCode).toBe(409);
     })
 
-    it("Should find debt based on ID", async () => {
+    it("Should find debt based on name", async () => {
         const debtResponseBody : DebtResponseBody   = (await supertest(app).post(`${debtApiUrl}/${user._id}`).send(apiInput)).body;
 
-        const { statusCode, body } = await supertest(app).get(`${debtApiUrl}/${user._id}?debtId=${debtResponseBody._id}`);
+        const { statusCode, body } = await supertest(app).get(`${debtApiUrl}/${user._id}?name=comida`);
         
-        expect(statusCode).toBe(200);
-        expect(body).toEqual(debtComparison)
+        expect(statusCode).toBe(202);
+        
+        expect(body.length).toBeGreaterThan(0);
+        expect(body[0]).toEqual(debtComparison)
     })
 
     it("Should find and update debt based on ID", async () => {

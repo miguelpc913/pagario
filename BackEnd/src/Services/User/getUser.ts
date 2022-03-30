@@ -1,5 +1,5 @@
 import GetUserInput from "../../Inputs/User/IdUserParameter";
-import UserModel from "../../models/user.model";
+import UserModel from "../../Models/user.model";
 
 export async function getUser(UserInput: GetUserInput["params"]){
     try{

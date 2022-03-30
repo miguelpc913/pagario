@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import supertest from "supertest";
 import createServer from "../Utils/createServer";
 import { MongoMemoryServer } from "mongodb-memory-server";
-import UserModel from "../models/user.model";
+import UserModel from "../Models/user.model";
 import UserResponseBody from "./TestUtils/UserResponse";
 const app = createServer();
 
